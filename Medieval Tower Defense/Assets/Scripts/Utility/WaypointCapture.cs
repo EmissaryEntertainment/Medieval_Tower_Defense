@@ -14,10 +14,4 @@ public class WaypointCapture : MonoBehaviour
             wayPoints[i] = transform.GetChild(i);
         }
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-		
-	}
 }
