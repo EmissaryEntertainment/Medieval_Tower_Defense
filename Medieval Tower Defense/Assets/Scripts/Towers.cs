@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class Towers : TowerClass
 {
-    public int attackPower;
-    public int towerCost;
-    public int attackRange;
     GameObject rangeIdentifier;
     Tower thisTower;
+    string towerTag;
 
     // Use this for initialization
     void Start ()
     {
-        rangeIdentifier = transform.GetChild(0).gameObject;
-        thisTower = new Tower(attackPower, towerCost, attackRange, rangeIdentifier);
+        towerTag = this.tag;
+        rangeIdentifier = transform.Find("RangeIdentifier").gameObject;
+        thisTower = new Tower(towerTag, rangeIdentifier);
 	}
 	
 	// Update is called once per frame
@@ -23,7 +22,7 @@ public class Towers : TowerClass
         if (Physics.CheckSphere(transform.position, thisTower.GetAttackRange(), 1 << 9))
         {
             Collider[] enemy = Physics.OverlapSphere(transform.position, thisTower.GetAttackRange(), 1 << 9);
-            thisTower.TrackTarget(transform, enemy[0].transform);
+            thisTower.TrackTarget(transform.Find("Turret"), enemy[0].transform);
             Debug.Log("tracking enemy");
         }
     }

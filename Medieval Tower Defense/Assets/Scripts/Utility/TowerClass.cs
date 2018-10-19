@@ -9,14 +9,27 @@ public class TowerClass : MonoBehaviour
         private int attackPower;
         private int towerCost;
         private int attackRange;
+        private string towerType;
         private GameObject rangeIdentifier;
 
-        public Tower(int _attackPower, int _towerCost, int _attackRange, GameObject _rangeIdentifier)
+        public Tower(string _towerType, GameObject _rangeIdentifier)
         {
-            attackPower = _attackPower;
-            towerCost = _towerCost;
-            attackRange = _attackRange;
-            rangeIdentifier = _rangeIdentifier;
+            towerType = _towerType;
+            if(towerType == "MachineGunLvl1")
+            {
+                attackPower = 20;
+                towerCost = 100;
+                attackRange = 10;
+                rangeIdentifier = _rangeIdentifier;
+            }
+            else if(towerType == "EMPLvl1")
+            {
+                attackPower = 25;
+                towerCost = 200;
+                attackRange = 7;
+                rangeIdentifier = _rangeIdentifier;
+            }
+            
         }
 
         public void SetAttackPower(int _attackPower)
