@@ -10,6 +10,7 @@ public class TowerClass : MonoBehaviour
         private int towerCost;
         private int attackRange;
         private string towerType;
+        private GameObject nextTower;
         private GameObject rangeIdentifier;
 
         public Tower(string _towerType, GameObject _rangeIdentifier)
@@ -17,19 +18,28 @@ public class TowerClass : MonoBehaviour
             towerType = _towerType;
             if(towerType == "MachineGunLvl1")
             {
-                attackPower = 20;
+                attackPower = 10;
                 towerCost = 100;
-                attackRange = 10;
+                attackRange = 7;
+                nextTower = Resources.Load("MachineGun_Lvl2") as GameObject;
                 rangeIdentifier = _rangeIdentifier;
             }
-            else if(towerType == "EMPLvl1")
+            else if (towerType == "MachineGunLvl2")
             {
                 attackPower = 25;
                 towerCost = 200;
-                attackRange = 7;
+                attackRange = 10;
+                nextTower = Resources.Load("MachineGun_Lvl3") as GameObject;
                 rangeIdentifier = _rangeIdentifier;
             }
-            
+            else if (towerType == "MachineGunLvl3")
+            {
+                attackPower = 40;
+                towerCost = 300;
+                attackRange = 12;
+                nextTower = null;
+                rangeIdentifier = _rangeIdentifier;
+            }
         }
 
         public void SetAttackPower(int _attackPower)
@@ -65,13 +75,19 @@ public class TowerClass : MonoBehaviour
 
         }
 
+        public GameObject GetNextTower()
+        {
+            return nextTower;
+        }
+
+        public void UpgradeTower(GameObject _currentTower)
+        {
+            Instantiate(nextTower, _currentTower.transform.position, _currentTower.transform.rotation);
+        }
+
         public void TrackTarget(Transform _turret, Transform _enemyPosition)
         {
             _turret.LookAt(_enemyPosition);
-        }
-        public void Attack(GameObject _enemy)
-        {
-            
         }
     }
 }

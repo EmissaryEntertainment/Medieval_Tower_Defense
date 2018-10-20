@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Towers : TowerClass
 {
-    GameObject rangeIdentifier;
-    Tower thisTower;
-    string towerTag;
+    private GameObject rangeIdentifier;
+    private Tower thisTower;
+    private string towerTag;
+    private GameObject bullet;
+    private Transform enemyPosition;
+    private float bulletTimer;
+    public float timeBetweenBullets;
 
     // Use this for initialization
     void Start ()
     {
         towerTag = this.tag;
+        bullet = Resources.Load("Bullet") as GameObject;
         rangeIdentifier = transform.Find("RangeIdentifier").gameObject;
         thisTower = new Tower(towerTag, rangeIdentifier);
 	}
@@ -19,10 +24,17 @@ public class Towers : TowerClass
 	// Update is called once per frame
 	void Update ()
     {
+        bulletTimer += Time.deltaTime;
         if (Physics.CheckSphere(transform.position, thisTower.GetAttackRange(), 1 << 9))
         {
             Collider[] enemy = Physics.OverlapSphere(transform.position, thisTower.GetAttackRange(), 1 << 9);
             thisTower.TrackTarget(transform.Find("Turret"), enemy[0].transform);
+            enemyPosition = enemy[0].transform;
+            if(bulletTimer > timeBetweenBullets)
+            {
+                Instantiate(bullet, transform.Find("Turret").transform.Find("Barrel").position, transform.Find("Turret").transform.Find("Barrel").rotation, transform);
+                bulletTimer = 0;
+            }
             Debug.Log("tracking enemy");
         }
     }
@@ -32,8 +44,19 @@ public class Towers : TowerClass
         thisTower.SetRangeIdentifier(thisTower.GetAttackRange());
     }
 
+    private void OnMouseDown()
+    {
+        thisTower.UpgradeTower(this.gameObject);
+        Destroy(gameObject, .01f);
+    }
+
     private void OnMouseExit()
     {
         thisTower.SetRangeIdentifier(0);
+    }
+
+    public Transform GetEnemyPosition()
+    {
+        return enemyPosition;
     }
 }
