@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\NodeSpawner.cs" />
+    <Compile Include="Assets\Scripts\SpiderEnemy.cs" />
     <Compile Include="Assets\Scripts\Towers.cs" />
+    <Compile Include="Assets\Scripts\Utility\Resources_Health.cs" />
     <Compile Include="Assets\Scripts\Utility\TowerClass.cs" />
     <Compile Include="Assets\Scripts\Utility\WaypointCapture.cs" />
     <Reference Include="UnityEditor.StandardEvents">

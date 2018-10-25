@@ -13,13 +13,13 @@ public class TowerClass : MonoBehaviour
         private GameObject nextTower;
         private GameObject rangeIdentifier;
 
-        public Tower(string _towerType, GameObject _rangeIdentifier)
+        public Tower(string _towerType, GameObject _rangeIdentifier, int _towerCost)
         {
             towerType = _towerType;
             if(towerType == "MachineGunLvl1")
             {
                 attackPower = 10;
-                towerCost = 100;
+                towerCost = _towerCost;
                 attackRange = 7;
                 nextTower = Resources.Load("MachineGun_Lvl2") as GameObject;
                 rangeIdentifier = _rangeIdentifier;
@@ -27,7 +27,7 @@ public class TowerClass : MonoBehaviour
             else if (towerType == "MachineGunLvl2")
             {
                 attackPower = 25;
-                towerCost = 200;
+                towerCost = _towerCost;
                 attackRange = 10;
                 nextTower = Resources.Load("MachineGun_Lvl3") as GameObject;
                 rangeIdentifier = _rangeIdentifier;
@@ -35,7 +35,7 @@ public class TowerClass : MonoBehaviour
             else if (towerType == "MachineGunLvl3")
             {
                 attackPower = 40;
-                towerCost = 300;
+                towerCost = _towerCost;
                 attackRange = 12;
                 nextTower = null;
                 rangeIdentifier = _rangeIdentifier;

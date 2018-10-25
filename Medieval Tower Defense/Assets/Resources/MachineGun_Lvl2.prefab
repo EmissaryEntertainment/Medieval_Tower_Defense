@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenBullets: 0.2
+  towerCost: 200
 --- !u!136 &136070472945254734
 CapsuleCollider:
   m_ObjectHideFlags: 1

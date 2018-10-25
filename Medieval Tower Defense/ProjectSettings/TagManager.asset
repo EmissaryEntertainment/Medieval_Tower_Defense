@@ -9,6 +9,9 @@ TagManager:
   - MachineGunLvl2
   - MachineGunLvl3
   - Bullet
+  - Resources_Text
+  - Health_Text
+  - WaypointParent
   layers:
   - Default
   - TransparentFX

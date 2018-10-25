@@ -9,8 +9,10 @@ public class Towers : TowerClass
     private string towerTag;
     private GameObject bullet;
     private Transform enemyPosition;
+    Resources_Health R_H;
     private float bulletTimer;
     public float timeBetweenBullets;
+    public int towerCost;
 
     // Use this for initialization
     void Start ()
@@ -18,8 +20,9 @@ public class Towers : TowerClass
         towerTag = this.tag;
         bullet = Resources.Load("Bullet") as GameObject;
         rangeIdentifier = transform.Find("RangeIdentifier").gameObject;
-        thisTower = new Tower(towerTag, rangeIdentifier);
-	}
+        thisTower = new Tower(towerTag, rangeIdentifier, towerCost);
+        R_H = Camera.main.GetComponent<Resources_Health>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -46,8 +49,12 @@ public class Towers : TowerClass
 
     private void OnMouseDown()
     {
-        thisTower.UpgradeTower(this.gameObject);
-        Destroy(gameObject, .01f);
+        if (thisTower.GetNextTower().GetComponent<Towers>().TowerCost() <= R_H.GetResources())
+        {
+            R_H.SetResources(-thisTower.GetNextTower().GetComponent<Towers>().TowerCost());
+            thisTower.UpgradeTower(this.gameObject);
+            Destroy(gameObject, .01f);
+        }
     }
 
     private void OnMouseExit()
@@ -58,5 +65,9 @@ public class Towers : TowerClass
     public Transform GetEnemyPosition()
     {
         return enemyPosition;
+    }
+    public int TowerCost()
+    {
+        return towerCost;
     }
 }

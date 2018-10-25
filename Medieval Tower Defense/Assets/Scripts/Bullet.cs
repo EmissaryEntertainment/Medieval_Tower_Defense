@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            transform.position = Vector3.MoveTowards(transform.position, parentTower.GetEnemyPosition().transform.position, bulletSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, parentTower.GetEnemyPosition().transform.position, bulletSpeed * Time.deltaTime);
+        Destroy(gameObject, 1);
     }
 }
