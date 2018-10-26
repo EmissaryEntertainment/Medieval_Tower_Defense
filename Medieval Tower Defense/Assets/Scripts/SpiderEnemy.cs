@@ -19,7 +19,7 @@ public class SpiderEnemy : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         transform.position = Vector3.MoveTowards(transform.position, waypoint.GetWaypoints(i).position, 5 * Time.deltaTime);
         transform.LookAt(waypoint.GetWaypoints(i).position);

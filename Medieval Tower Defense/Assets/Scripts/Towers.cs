@@ -25,7 +25,7 @@ public class Towers : TowerClass
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         bulletTimer += Time.deltaTime;
         if (Physics.CheckSphere(transform.position, thisTower.GetAttackRange(), 1 << 9))
