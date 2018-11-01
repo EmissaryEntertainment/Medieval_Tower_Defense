@@ -12,6 +12,7 @@ TagManager:
   - Resources_Text
   - Health_Text
   - WaypointParent
+  - TargetPoint
   layers:
   - Default
   - TransparentFX

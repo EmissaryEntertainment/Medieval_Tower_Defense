@@ -385,6 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenBullets: 0.1
   towerCost: 300
+  bullet: {fileID: 1300477030034920, guid: 1b57b65649782724db9cbb20ffe84494, type: 2}
 --- !u!136 &136009866060573650
 CapsuleCollider:
   m_ObjectHideFlags: 1

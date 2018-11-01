@@ -5,22 +5,35 @@ using UnityEngine.UI;
 
 public class NodeSpawner : MonoBehaviour
 {
-    GameObject baseTower;
-    Resources_Health R_H;
+    GameObject thisCanvas; // the child canvas of this object, used to instantiate turrets on button press.
+
+    private float canvasTimer = 0; // used to diable canvas if the player has not utilized it within a set amount of time (10 second)
 
     private void Start()
     {
-        baseTower = Resources.Load("MachineGun_Lvl1") as GameObject;
-        R_H = Camera.main.GetComponent<Resources_Health>();
+        thisCanvas = transform.GetChild(0).gameObject;
+        thisCanvas.SetActive(false);
+    }
+
+    private void FixedUpdate()
+    {
+        if (thisCanvas.activeInHierarchy == true)
+        {
+            canvasTimer += Time.deltaTime;
+        }
+        else
+        {
+            canvasTimer = 0;
+        }
+
+        if(canvasTimer >= 10)
+        {
+            thisCanvas.SetActive(false);
+        }
     }
 
     private void OnMouseDown()
     {
-        if (baseTower.GetComponent<Towers>().TowerCost() <= R_H.GetResources())
-        {
-            R_H.SetResources(-baseTower.GetComponent<Towers>().towerCost);
-            Instantiate(baseTower, this.transform.position + new Vector3(0, 1, 0), this.transform.rotation);
-            gameObject.GetComponent<BoxCollider>().enabled = false;
-        }
+        thisCanvas.SetActive(true);
     }
 }

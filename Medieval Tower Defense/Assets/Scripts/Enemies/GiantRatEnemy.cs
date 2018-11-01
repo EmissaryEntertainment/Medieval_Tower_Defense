@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpiderEnemy : MonoBehaviour
+public class GiantRatEnemy : MonoBehaviour
 {
     Slider healthBar;
 
@@ -14,14 +14,14 @@ public class SpiderEnemy : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        healthBar = transform.Find("SpiderHealth").transform.Find("Healthbar").GetComponent<Slider>();
+        healthBar = transform.Find("RatHealth").transform.Find("Healthbar").GetComponent<Slider>();
         waypoint = GameObject.FindGameObjectWithTag("WaypointParent").GetComponent<WaypointCapture>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        transform.position = Vector3.MoveTowards(transform.position, waypoint.GetWaypoints(i).position, 5 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, waypoint.GetWaypoints(i).position, Random.Range(3,9) * Time.deltaTime);
         transform.LookAt(waypoint.GetWaypoints(i).position);
         if (transform.position == waypoint.GetWaypoints(i).position)
         {
@@ -37,7 +37,7 @@ public class SpiderEnemy : MonoBehaviour
     {
         if (other.tag == "Bullet")
         {
-            healthBar.value += -20;
+            healthBar.value -= 20;
             Destroy(other.gameObject, .01f);
         }
     }

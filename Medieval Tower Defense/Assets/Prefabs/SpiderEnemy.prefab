@@ -2072,12 +2072,12 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1969019099664396}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.36
-  m_Height: 1.26
+  m_Radius: 0.05
+  m_Height: 0
   m_Direction: 2
-  m_Center: {x: 0, y: 0.24, z: -0.08}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137088729060167508
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
