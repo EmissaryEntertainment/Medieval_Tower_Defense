@@ -9,6 +9,10 @@ public class NodeSpawner : MonoBehaviour
 
     private float canvasTimer = 0; // used to diable canvas if the player has not utilized it within a set amount of time (10 second)
 
+    AutomatedTest currentMouseValues = new AutomatedTest();
+
+    private int gameTicks = 0;
+
     private void Start()
     {
         thisCanvas = transform.GetChild(0).gameObject;
@@ -17,6 +21,7 @@ public class NodeSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gameTicks++;
         if (thisCanvas.activeInHierarchy == true)
         {
             canvasTimer += Time.deltaTime;
@@ -35,5 +40,7 @@ public class NodeSpawner : MonoBehaviour
     private void OnMouseDown()
     {
         thisCanvas.SetActive(true);
+        MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, true, gameTicks);
+        currentMouseValues.StoreMousePosition(thisMouseEvent);
     }
 }

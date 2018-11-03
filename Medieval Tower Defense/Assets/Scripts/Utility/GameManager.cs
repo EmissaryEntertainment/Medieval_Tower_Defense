@@ -37,4 +37,10 @@ public class GameManager : MonoBehaviour {
     {
         Time.timeScale = 1;
     }
+
+    public void SaveGame()
+    {
+        AutomatedTest save = new AutomatedTest();
+        save.SaveData();
+    }
 }
