@@ -1,18 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
-public class GameManager : MonoBehaviour {
+
+public class GameManager : MonoBehaviour
+{
+    [DllImport("user32.dll")]
+    static extern bool SetCursorPos(int X, int Y);
+
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern void mouse_event(long dwFlags, float dx, float dy, long cButtons, long dwExtraInfo);
+
+    private const int MOUSEEVENTF_LEFTDOWN = 0x02;
+    private const int MOUSEEVENTF_LEFTUP = 0x04;
+    private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
+    private const int MOUSEEVENTF_RIGHTUP = 0x10;
+
+    AutomatedTest readBackInputs = new AutomatedTest();
+    int testTicks = 0;
+    int i = 0;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+    {
+        readBackInputs.ReadMousePositionFromJson();
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
-		if(Input.GetKeyDown(KeyCode.Escape))
+        testTicks++;
+        Debug.Log(Input.mousePosition);
+        if (readBackInputs.ReturnMouseEventObj(i) != null)
+        {
+            if (readBackInputs.ReturnMouseEventObj(i).gameTicks == testTicks)
+            {
+                SetCursorPos(Mathf.RoundToInt(readBackInputs.ReturnMouseEventObj(i).posX), Mathf.RoundToInt(readBackInputs.ReturnMouseEventObj(i).posY));
+                if (readBackInputs.ReturnMouseEventObj(i).mouseClick == true)
+                {
+                    DoMouseClick(Mathf.RoundToInt(readBackInputs.ReturnMouseEventObj(i).posX), Mathf.RoundToInt(readBackInputs.ReturnMouseEventObj(i).posY));
+                }
+                i++;
+
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0;
             // enable pause menu
@@ -38,9 +72,11 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 1;
     }
 
-    public void SaveGame()
+    public void DoMouseClick(int _X,int _Y)
     {
-        AutomatedTest save = new AutomatedTest();
-        save.SaveData();
+        //Call the imported function with the cursor's current position
+        int X = _X;
+        int Y = _Y;
+        mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
     }
 }

@@ -2,15 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
+public class EnemySpawner : MonoBehaviour
+{
+    private GameObject spiderEnemy;
+    private GameObject ratEnemy;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private int spiderSpawnedAmount = 0;
+    private int ratSpawnedAmount = 0;
+
+    private float spiderSpawnTimer = 0; // used to compare when to spawn an enemy
+    public float spiderSpawnTime = 0; // set from the inspector to determine time between enemy spawns
+    private float ratSpawnTimer = 0; // used to compare when to spawn an enemy
+    public float ratSpawnTime = 0; // set from the inspector to determine time between enemy spawns
+
+    // Use this for initialization
+    void Start ()
+    {
+        spiderEnemy = Resources.Load("SpiderEnemy") as GameObject;
+        ratEnemy = Resources.Load("RatEnemy") as GameObject;
+    }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void FixedUpdate ()
+    {
+        spiderSpawnTimer += Time.deltaTime;
+        ratSpawnTimer += Time.deltaTime;
+        if(spiderSpawnTimer > spiderSpawnTime && spiderSpawnedAmount < 30)
+        {
+            Instantiate(spiderEnemy, transform.position, Quaternion.identity);
+            spiderSpawnedAmount++;
+            spiderSpawnTimer = 0;
+        }
+        if (ratSpawnTimer > ratSpawnTime && ratSpawnedAmount < 10)
+        {
+            Instantiate(ratEnemy, transform.position, Quaternion.identity);
+            ratSpawnedAmount++;
+            ratSpawnTimer = 0;
+        }
+    }
 }

@@ -8,25 +8,42 @@ using System.IO;
 public class AutomatedTest
 {
     List<MouseEvents> mousePosition = new List<MouseEvents>();
-    List<string> mousePosJson = new List<string>();
+    string jSon;
     private string FilePath;
+
+    //the following code is called each time an event happens and stores the mouse position
 
     public void StoreMousePosition(MouseEvents _mouse)
     {
-        mousePosition.Add(_mouse);
-        Debug.Log(mousePosition.Count - 1);
-        mousePosJson.Add(JsonUtility.ToJson(mousePosition[mousePosition.Count-1]));
-        Debug.Log(JsonUtility.FromJson<MouseEvents>(mousePosJson[0]).posX +":"+ JsonUtility.FromJson<MouseEvents>(mousePosJson[0]).posY + ":" + JsonUtility.FromJson<MouseEvents>(mousePosJson[0]).mouseClick +":"+ JsonUtility.FromJson<MouseEvents>(mousePosJson[0]).gameTicks);
+        //comment out in order to disable the capture during playback
+
+        //FilePath = Path.Combine(Application.persistentDataPath, "AutomatedTestData.txt");
+        //jSon = JsonUtility.ToJson(_mouse);
+        //using (StreamWriter streamWriter = new StreamWriter(FilePath, true))
+        //{
+        //    streamWriter.Write(jSon);
+        //}
     }
 
-    public void SaveData()
+    //this is called at the beginning of the game and creates a list of mouse positions that get iterated through to automatically play the game.
+    public void ReadMousePositionFromJson()
     {
-        FilePath = Application.persistentDataPath;
-        for(int i = 0;i<mousePosJson.Count;i++)
+        FilePath = Path.Combine(Application.persistentDataPath, "AutomatedTestData.txt");
+        string fromJsonString;
+        using (StreamReader streamReader = File.OpenText(FilePath))
         {
-            File.WriteAllText(FilePath, mousePosJson[i]);
+            while ((fromJsonString = streamReader.ReadLine()) != null)
+            {
+                mousePosition.Add(JsonUtility.FromJson<MouseEvents>(fromJsonString));
+            }
         }
     }
+
+    public MouseEvents ReturnMouseEventObj(int _i)
+    {
+        return mousePosition[_i];
+    }
+
 }
 
 public class MouseEvents

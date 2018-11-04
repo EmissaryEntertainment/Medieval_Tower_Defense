@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, parentTower.GetEnemyPosition().transform.position, bulletSpeed * Time.deltaTime);
+        transform.LookAt(parentTower.GetEnemyPosition().transform.position);
         Destroy(gameObject, 1);
     }
 }

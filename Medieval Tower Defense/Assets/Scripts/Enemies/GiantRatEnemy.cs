@@ -9,6 +9,8 @@ public class GiantRatEnemy : MonoBehaviour
 
     WaypointCapture waypoint;
 
+    Resources_Health R_H;
+
     int i = 0;
 
 	// Use this for initialization
@@ -16,10 +18,12 @@ public class GiantRatEnemy : MonoBehaviour
     {
         healthBar = transform.Find("RatHealth").transform.Find("Healthbar").GetComponent<Slider>();
         waypoint = GameObject.FindGameObjectWithTag("WaypointParent").GetComponent<WaypointCapture>();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+        R_H = Camera.main.GetComponent<Resources_Health>();
+
+    }
+
+    // Update is called once per frame
+    void FixedUpdate ()
     {
         transform.position = Vector3.MoveTowards(transform.position, waypoint.GetWaypoints(i).position, Random.Range(3,9) * Time.deltaTime);
         transform.LookAt(waypoint.GetWaypoints(i).position);
@@ -29,6 +33,7 @@ public class GiantRatEnemy : MonoBehaviour
         }
         if(healthBar.value <= 0)
         {
+            R_H.SetResources(50);
             Destroy(gameObject, .01f);
         }
 	}
@@ -37,7 +42,7 @@ public class GiantRatEnemy : MonoBehaviour
     {
         if (other.tag == "Bullet")
         {
-            healthBar.value -= 20;
+            healthBar.value -= 10;
             Destroy(other.gameObject, .01f);
         }
     }

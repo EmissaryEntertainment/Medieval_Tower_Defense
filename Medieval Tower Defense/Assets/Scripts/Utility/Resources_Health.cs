@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Resources_Health : MonoBehaviour
 {
-    int resources = 200;
+    int resources = 300;
     int health = 10;
 
     Text resourceText;

@@ -12,8 +12,9 @@ public class TowerClass : MonoBehaviour
         private string towerType;
         private GameObject nextTower;
         private GameObject rangeIdentifier;
+        private int gameTicks;
 
-        public Tower(string _towerType, GameObject _rangeIdentifier, int _towerCost)
+        public Tower(string _towerType, GameObject _rangeIdentifier, int _towerCost,int _gameTicks)
         {
             towerType = _towerType;
             if(towerType == "MachineGunLvl1")
@@ -21,6 +22,7 @@ public class TowerClass : MonoBehaviour
                 attackPower = 10;
                 towerCost = _towerCost;
                 attackRange = 7;
+                gameTicks = _gameTicks;
                 nextTower = Resources.Load("MachineGun_Lvl2") as GameObject;
                 rangeIdentifier = _rangeIdentifier;
             }
@@ -29,6 +31,7 @@ public class TowerClass : MonoBehaviour
                 attackPower = 25;
                 towerCost = _towerCost;
                 attackRange = 10;
+                gameTicks = _gameTicks;
                 nextTower = Resources.Load("MachineGun_Lvl3") as GameObject;
                 rangeIdentifier = _rangeIdentifier;
             }
@@ -37,6 +40,7 @@ public class TowerClass : MonoBehaviour
                 attackPower = 40;
                 towerCost = _towerCost;
                 attackRange = 12;
+                gameTicks = _gameTicks;
                 nextTower = null;
                 rangeIdentifier = _rangeIdentifier;
             }
@@ -82,12 +86,21 @@ public class TowerClass : MonoBehaviour
 
         public void UpgradeTower(GameObject _currentTower)
         {
-            Instantiate(nextTower, _currentTower.transform.position, _currentTower.transform.rotation);
+            Instantiate(nextTower, _currentTower.transform.position, _currentTower.transform.rotation,_currentTower.transform.parent.transform);
         }
 
         public void TrackTarget(Transform _turret, Transform _enemyPosition)
         {
             _turret.LookAt(_enemyPosition);
+        }
+
+        public int GetGameTicks()
+        {
+            return gameTicks;
+        }
+        public void IncrementGameTicks()
+        {
+            gameTicks++;
         }
     }
 }

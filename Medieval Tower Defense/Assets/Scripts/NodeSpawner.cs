@@ -15,7 +15,7 @@ public class NodeSpawner : MonoBehaviour
 
     private void Start()
     {
-        thisCanvas = transform.GetChild(0).gameObject;
+        thisCanvas = transform.GetChild(0).transform.GetChild(0).gameObject;
         thisCanvas.SetActive(false);
     }
 
@@ -40,7 +40,7 @@ public class NodeSpawner : MonoBehaviour
     private void OnMouseDown()
     {
         thisCanvas.SetActive(true);
-        MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, true, gameTicks);
+        MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x,Input.mousePosition.y, true, gameTicks);
         currentMouseValues.StoreMousePosition(thisMouseEvent);
     }
 }

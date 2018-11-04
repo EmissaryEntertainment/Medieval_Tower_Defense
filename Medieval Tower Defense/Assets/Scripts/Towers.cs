@@ -16,18 +16,31 @@ public class Towers : TowerClass
     public int towerCost; // used for taking resources from the player when instantiating or upgrading a turret
     public GameObject bullet; // the bullet gameobject the turret will insantiate
 
+    AutomatedTest currentMouseValues = new AutomatedTest();
+
     // Use this for initialization
     void Start ()
     {
         towerTag = this.tag;
         rangeIdentifier = transform.Find("RangeIdentifier").gameObject;
-        thisTower = new Tower(towerTag, rangeIdentifier, towerCost);
+        Debug.Log("Beforethistower");
+        if (transform.parent.GetComponent<TurretSelection>() != null)
+        {
+            Debug.Log("turretselection");
+            thisTower = new Tower(towerTag, rangeIdentifier, towerCost, transform.parent.GetComponent<TurretSelection>().GetGameTicks());
+        }
+        else
+        {
+            Debug.Log("Towers");
+            thisTower = new Tower(towerTag, rangeIdentifier, towerCost, transform.parent.GetComponent<Towers>().GetGameTicks());
+        }
         R_H = Camera.main.GetComponent<Resources_Health>();
     }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
     {
+        thisTower.IncrementGameTicks();
         bulletTimer += Time.deltaTime;
         if (Physics.CheckSphere(transform.position, thisTower.GetAttackRange(), 1 << 9))
         {
@@ -39,19 +52,22 @@ public class Towers : TowerClass
                 Instantiate(bullet, transform.Find("Turret").transform.Find("Barrel").position, transform.Find("Turret").transform.Find("Barrel").rotation, transform);
                 bulletTimer = 0;
             }
-            Debug.Log("tracking enemy");
         }
     }
 
     private void OnMouseEnter()
     {
         thisTower.SetRangeIdentifier(thisTower.GetAttackRange());
+        MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, false, GetGameTicks());
+        currentMouseValues.StoreMousePosition(thisMouseEvent);
     }
 
     private void OnMouseDown()
     {
         if (thisTower.GetNextTower().GetComponent<Towers>().TowerCost() <= R_H.GetResources())
         {
+            MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, true, GetGameTicks());
+            currentMouseValues.StoreMousePosition(thisMouseEvent);
             R_H.SetResources(-thisTower.GetNextTower().GetComponent<Towers>().TowerCost());
             thisTower.UpgradeTower(this.gameObject);
             Destroy(gameObject, .01f);
@@ -60,6 +76,8 @@ public class Towers : TowerClass
 
     private void OnMouseExit()
     {
+        MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, false, GetGameTicks());
+        currentMouseValues.StoreMousePosition(thisMouseEvent);
         thisTower.SetRangeIdentifier(0);
     }
 
@@ -70,5 +88,9 @@ public class Towers : TowerClass
     public int TowerCost()
     {
         return towerCost;
+    }
+    public int GetGameTicks()
+    {
+        return thisTower.GetGameTicks();
     }
 }
