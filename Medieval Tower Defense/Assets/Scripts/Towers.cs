@@ -26,12 +26,10 @@ public class Towers : TowerClass
         Debug.Log("Beforethistower");
         if (transform.parent.GetComponent<TurretSelection>() != null)
         {
-            Debug.Log("turretselection");
             thisTower = new Tower(towerTag, rangeIdentifier, towerCost, transform.parent.GetComponent<TurretSelection>().GetGameTicks());
         }
         else
         {
-            Debug.Log("Towers");
             thisTower = new Tower(towerTag, rangeIdentifier, towerCost, transform.parent.GetComponent<Towers>().GetGameTicks());
         }
         R_H = Camera.main.GetComponent<Resources_Health>();
@@ -47,7 +45,7 @@ public class Towers : TowerClass
             Collider[] enemy = Physics.OverlapSphere(transform.position, thisTower.GetAttackRange(), 1 << 9);
             thisTower.TrackTarget(transform.Find("Turret"), enemy[0].transform);
             enemyPosition = enemy[0].transform;
-            if(bulletTimer > timeBetweenBullets)
+            if (bulletTimer > timeBetweenBullets)
             {
                 Instantiate(bullet, transform.Find("Turret").transform.Find("Barrel").position, transform.Find("Turret").transform.Find("Barrel").rotation, transform);
                 bulletTimer = 0;

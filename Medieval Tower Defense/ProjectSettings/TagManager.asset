@@ -13,6 +13,8 @@ TagManager:
   - Health_Text
   - WaypointParent
   - TargetPoint
+  - TurretSpawnButton
+  - Node
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,7 @@ public class TurretSelection : MonoBehaviour
     GameObject baseTower;
     Resources_Health R_H;
     AutomatedTest currentMouseValues = new AutomatedTest();
+    public static Transform currentNode;
     int gameTicks = 0;
 
     private void Start()
@@ -28,9 +29,10 @@ public class TurretSelection : MonoBehaviour
             MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, true, gameTicks);
             currentMouseValues.StoreMousePosition(thisMouseEvent);
             R_H.SetResources(-baseTower.GetComponent<Towers>().towerCost);
-            Instantiate(baseTower, this.transform.parent.transform.position + new Vector3(0, 1, 0), this.transform.rotation,this.transform);
-            transform.parent.gameObject.GetComponent<BoxCollider>().enabled = false;
-            transform.GetChild(0).gameObject.SetActive(false);
+            Instantiate(baseTower, currentNode.position + new Vector3(0, 1, 0), Quaternion.identity, currentNode);
+            currentNode.gameObject.GetComponent<Renderer>().enabled = false;
+            currentNode.gameObject.GetComponent<BoxCollider>().enabled = false;
+            GameObject.FindGameObjectWithTag("TurretSpawnButton").SetActive(false);
         }
     }
 

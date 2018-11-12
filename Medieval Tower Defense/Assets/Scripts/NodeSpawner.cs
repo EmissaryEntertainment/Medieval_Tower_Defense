@@ -2,44 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class NodeSpawner : MonoBehaviour
 {
-    GameObject thisCanvas; // the child canvas of this object, used to instantiate turrets on button press.
+    GameObject turretSpawnButton;
 
-    private float canvasTimer = 0; // used to diable canvas if the player has not utilized it within a set amount of time (10 second)
+    GameObject[] allNodes;
 
     AutomatedTest currentMouseValues = new AutomatedTest();
 
+    public Material selectedNodeMat;
+    public Material unselectedNodeMat;
+
     private int gameTicks = 0;
+
+    private void Awake()
+    {
+        turretSpawnButton = GameObject.FindGameObjectWithTag("TurretSpawnButton");
+    }
 
     private void Start()
     {
-        thisCanvas = transform.GetChild(0).transform.GetChild(0).gameObject;
-        thisCanvas.SetActive(false);
+        for (int i = 0; i < 70; i++)
+        {
+            allNodes = GameObject.FindGameObjectsWithTag("Node");
+        }
+        turretSpawnButton.SetActive(false);
     }
 
     private void FixedUpdate()
     {
         gameTicks++;
-        if (thisCanvas.activeInHierarchy == true)
-        {
-            canvasTimer += Time.deltaTime;
-        }
-        else
-        {
-            canvasTimer = 0;
-        }
-
-        if(canvasTimer >= 10)
-        {
-            thisCanvas.SetActive(false);
-        }
     }
 
     private void OnMouseDown()
     {
-        thisCanvas.SetActive(true);
+        for(int i = 0;i<allNodes.Length;i++)
+        {
+            allNodes[i].GetComponent<Renderer>().material = unselectedNodeMat;
+        }
+        this.GetComponent<Renderer>().material = selectedNodeMat;
+        turretSpawnButton.SetActive(true);
+        TurretSelection.currentNode = this.transform;
         MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x,Input.mousePosition.y, true, gameTicks);
         currentMouseValues.StoreMousePosition(thisMouseEvent);
     }
