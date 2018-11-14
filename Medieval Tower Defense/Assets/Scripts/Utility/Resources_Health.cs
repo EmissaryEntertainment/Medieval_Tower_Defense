@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Resources_Health : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class Resources_Health : MonoBehaviour
     {
         resourceText.text = resources.ToString();
         healthText.text = health.ToString();
+        if(GetHealth() <=0)
+        {
+            SceneManager.LoadScene(1);
+        }
 	}
 
     public void SetHealth(int _healthValue)

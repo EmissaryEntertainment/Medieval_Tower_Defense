@@ -73,6 +73,8 @@
     <Compile Include="Assets\Scripts\Utility\Resources_Health.cs" />
     <Compile Include="Assets\Scripts\Utility\TowerClass.cs" />
     <Compile Include="Assets\Scripts\Utility\TurretSelection.cs" />
+    <Compile Include="Assets\Scripts\Utility\TurretSpawnButtonControls.cs" />
+    <Compile Include="Assets\Scripts\Utility\TurretUpgradeButtonControls.cs" />
     <Compile Include="Assets\Scripts\Utility\WaypointCapture.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/School/10th Quarter/Advanced Software Dev/Medieval_Tower_Defense/Medieval Tower Defense/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

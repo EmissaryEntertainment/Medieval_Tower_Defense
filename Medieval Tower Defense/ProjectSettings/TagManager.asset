@@ -15,6 +15,7 @@ TagManager:
   - TargetPoint
   - TurretSpawnButton
   - Node
+  - TurretUpgradeButton
   layers:
   - Default
   - TransparentFX

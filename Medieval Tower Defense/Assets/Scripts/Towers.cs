@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Towers : TowerClass
 {
@@ -16,14 +17,24 @@ public class Towers : TowerClass
     public int towerCost; // used for taking resources from the player when instantiating or upgrading a turret
     public GameObject bullet; // the bullet gameobject the turret will insantiate
 
+    public Image turretUpgradeButtonImage; // image for the upgrade button for the next turret
+    public Button turretUpgradeButton; // button component for turret upgrade
+
     AutomatedTest currentMouseValues = new AutomatedTest();
+
+    private void Awake()
+    {
+        turretUpgradeButtonImage = GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>();
+        turretUpgradeButton = GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Button>();
+    }
 
     // Use this for initialization
     void Start ()
     {
+        turretUpgradeButton.enabled = false;
+        turretUpgradeButtonImage.enabled = false;
         towerTag = this.tag;
         rangeIdentifier = transform.Find("RangeIdentifier").gameObject;
-        Debug.Log("Beforethistower");
         if (transform.parent.GetComponent<TurretSelection>() != null)
         {
             thisTower = new Tower(towerTag, rangeIdentifier, towerCost, transform.parent.GetComponent<TurretSelection>().GetGameTicks());
@@ -62,14 +73,27 @@ public class Towers : TowerClass
 
     private void OnMouseDown()
     {
-        if (thisTower.GetNextTower().GetComponent<Towers>().TowerCost() <= R_H.GetResources())
+        if (this.tag != "MachineGunLvl3")
         {
-            MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, true, GetGameTicks());
-            currentMouseValues.StoreMousePosition(thisMouseEvent);
-            R_H.SetResources(-thisTower.GetNextTower().GetComponent<Towers>().TowerCost());
-            thisTower.UpgradeTower(this.gameObject);
-            Destroy(gameObject, .01f);
+            if (GameObject.FindGameObjectWithTag("TurretSpawnButton") != null)
+            {
+                GameObject.FindGameObjectWithTag("TurretSpawnButton").SetActive(false);
+            }
+            turretUpgradeButton.enabled = true;
+            turretUpgradeButtonImage.enabled = true;
+            TurretSelection.currentTower = this.gameObject;
+            TurretSelection.nextTower = thisTower.GetNextTower();
+            TurretUpgradeButtonControls.nextTowerCost = thisTower.GetNextTower().GetComponent<Towers>().TowerCost();
+            TurretSelection.currentNode = this.transform.parent;
         }
+        //if (thisTower.GetNextTower().GetComponent<Towers>().TowerCost() <= R_H.GetResources())
+        //{
+        //    MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, true, GetGameTicks());
+        //    currentMouseValues.StoreMousePosition(thisMouseEvent);
+        //    R_H.SetResources(-thisTower.GetNextTower().GetComponent<Towers>().TowerCost());
+        //    thisTower.UpgradeTower(this.gameObject);
+        //    Destroy(gameObject, .01f);
+        //}
     }
 
     private void OnMouseExit()

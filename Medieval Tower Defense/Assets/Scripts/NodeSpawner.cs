@@ -38,7 +38,12 @@ public class NodeSpawner : MonoBehaviour
 
     private void OnMouseDown()
     {
-        for(int i = 0;i<allNodes.Length;i++)
+        if (GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>().enabled == true)
+        {
+            GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>().enabled = false;
+            GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Button>().enabled = false;
+        }
+        for (int i = 0;i<allNodes.Length;i++)
         {
             allNodes[i].GetComponent<Renderer>().material = unselectedNodeMat;
         }
