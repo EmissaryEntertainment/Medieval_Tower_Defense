@@ -5,23 +5,25 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     Towers parentTower;
+    Transform enemyPosition;
     public float bulletSpeed;
 
     private void Start()
     {
         parentTower = this.transform.GetComponentInParent<Towers>();
+        enemyPosition = parentTower.GetEnemyPosition().transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (parentTower.GetEnemyPosition() != null)
+        if (enemyPosition != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, parentTower.GetEnemyPosition().transform.position, bulletSpeed * Time.deltaTime);
-            transform.LookAt(parentTower.GetEnemyPosition().transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, enemyPosition.position, bulletSpeed * Time.deltaTime);
+            transform.LookAt(enemyPosition.position);
             Destroy(gameObject, .5f);
         }
-        else
+        if(enemyPosition == null)
         {
             Destroy(gameObject, .01f);
         }

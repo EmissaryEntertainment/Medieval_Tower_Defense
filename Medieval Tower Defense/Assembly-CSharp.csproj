@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Utility\Castle.cs" />
     <Compile Include="Assets\Scripts\Utility\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Utility\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Utility\QuitGame.cs" />
     <Compile Include="Assets\Scripts\Utility\Resources_Health.cs" />
     <Compile Include="Assets\Scripts\Utility\TowerClass.cs" />
     <Compile Include="Assets\Scripts\Utility\TurretSelection.cs" />

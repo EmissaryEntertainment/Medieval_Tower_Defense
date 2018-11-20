@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Created as a parent to the Tower class.
+/// This allows the Tower class to inherit from MonoBehaviour
+/// </summary>
 public class TowerClass : MonoBehaviour
 {
+    /// <summary>
+    /// Main controlling class for all turrets available in the game.
+    /// Encapsulates all tower data except for cost into a private variable
+    /// </summary>
     public class Tower
     {
         private int attackPower;
@@ -14,10 +23,26 @@ public class TowerClass : MonoBehaviour
         private GameObject rangeIdentifier;
         private int gameTicks;
 
-        public Tower(string _towerType, GameObject _rangeIdentifier, int _towerCost,int _gameTicks)
+        /// <summary>
+        /// Constructs and assigns values for tower based on the tag of the tower in the unity editor.
+        /// The only public variable that each tower controls for itself is the cost of the tower
+        /// </summary>
+        /// <param name="_towerType">
+        /// This should be the tag of the tower
+        /// </param>
+        /// <param name="_rangeIdentifier">
+        /// Range identifer object attatched to the tower
+        /// </param>
+        /// <param name="_towerCost">
+        /// The cost of the Tower from it's towerCost variable
+        /// </param>
+        /// <param name="_gameTicks">
+        /// Tracks gameticks from FixedUpdate for the automated tests
+        /// </param>
+        public Tower(string _towerType, GameObject _rangeIdentifier, int _towerCost, int _gameTicks)
         {
             towerType = _towerType;
-            if(towerType == "MachineGunLvl1")
+            if (towerType == "MachineGunLvl1")
             {
                 attackPower = 10;
                 towerCost = _towerCost;
@@ -46,28 +71,16 @@ public class TowerClass : MonoBehaviour
             }
         }
 
-        public void SetAttackPower(int _attackPower)
-        {
-            attackPower = _attackPower;
-        }
         public int GetAttackPower()
         {
             return attackPower;
         }
 
-        public void SetTowerCost(int _towerCost)
-        {
-            towerCost = _towerCost;
-        }
         public int GetTowerCost()
         {
             return towerCost;
         }
 
-        public void SetAttackRange(int _attackRange)
-        {
-            attackRange = _attackRange;
-        }
         public int GetAttackRange()
         {
             return attackRange;
@@ -86,7 +99,7 @@ public class TowerClass : MonoBehaviour
 
         public void UpgradeTower(GameObject _currentTower)
         {
-            Instantiate(nextTower, _currentTower.transform.position, _currentTower.transform.rotation,_currentTower.transform.parent.transform);
+            Instantiate(nextTower, _currentTower.transform.position, _currentTower.transform.rotation, _currentTower.transform.parent.transform);
         }
 
         public void TrackTarget(Transform _turret, Transform _enemyPosition)

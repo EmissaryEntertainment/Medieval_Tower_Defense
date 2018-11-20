@@ -14,16 +14,10 @@ public class TurretSpawnButtonControls : MonoBehaviour
         baseTower = Resources.Load("MachineGun_Lvl1") as GameObject;
     }
 
-    // Use this for initialization
-    void Start ()
-    { 
-
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
-		if(r_h.GetResources() < baseTower.GetComponent<Towers>().TowerCost())
+        if (r_h.GetResources() < baseTower.GetComponent<Towers>().TowerCost())
         {
             this.GetComponent<Image>().color = Color.red;
         }
@@ -31,5 +25,5 @@ public class TurretSpawnButtonControls : MonoBehaviour
         {
             this.GetComponent<Image>().color = Color.white;
         }
-	}
+    }
 }

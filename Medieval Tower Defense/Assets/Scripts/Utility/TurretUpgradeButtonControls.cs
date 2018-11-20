@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TurretUpgradeButtonControls : MonoBehaviour
 {
     Resources_Health r_h;
-    public static int nextTowerCost = 200;
+    public static int nextTowerCost = 200; // default value to avoid errors
 
     private void Awake()
     {

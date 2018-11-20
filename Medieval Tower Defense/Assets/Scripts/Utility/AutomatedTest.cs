@@ -11,8 +11,13 @@ public class AutomatedTest
     string jSon;
     private string FilePath;
 
-    //the following code is called each time an event happens and stores the mouse position
 
+    /// <summary>
+    /// Each time an event happens, stores the mouse position
+    /// <remarks>
+    /// Comment out in order to disable automated input storage
+    /// </remarks>
+    /// </summary>
     public void StoreMousePosition(MouseEvents _mouse)
     {
         //comment out in order to disable the capture during playback
@@ -25,7 +30,9 @@ public class AutomatedTest
         //}
     }
 
-    //this is called at the beginning of the game and creates a list of mouse positions that get iterated through to automatically play the game.
+    /// <summary>
+    /// This is called at the beginning of the game and creates a list of mouse positions that get iterated through to automatically play the game.
+    /// </summary>
     public void ReadMousePositionFromJson()
     {
         FilePath = Path.Combine(Application.persistentDataPath, "AutomatedTestData.txt");
@@ -46,6 +53,9 @@ public class AutomatedTest
 
 }
 
+/// <summary>
+/// Class dedicated to storing the values of the mouse for automated testing playback
+/// </summary>
 public class MouseEvents
 {
     public float posX;

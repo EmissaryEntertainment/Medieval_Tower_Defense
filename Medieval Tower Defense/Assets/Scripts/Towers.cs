@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Derived from TowerClass
+/// Every tower is created through and controlled by this class.
+/// See 
+/// <see cref="TowerClass"/>
+/// </summary>
 public class Towers : TowerClass
 {
     private GameObject rangeIdentifier; // used to set the range of the turret
@@ -86,14 +92,6 @@ public class Towers : TowerClass
             TurretUpgradeButtonControls.nextTowerCost = thisTower.GetNextTower().GetComponent<Towers>().TowerCost();
             TurretSelection.currentNode = this.transform.parent;
         }
-        //if (thisTower.GetNextTower().GetComponent<Towers>().TowerCost() <= R_H.GetResources())
-        //{
-        //    MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x, Input.mousePosition.y, true, GetGameTicks());
-        //    currentMouseValues.StoreMousePosition(thisMouseEvent);
-        //    R_H.SetResources(-thisTower.GetNextTower().GetComponent<Towers>().TowerCost());
-        //    thisTower.UpgradeTower(this.gameObject);
-        //    Destroy(gameObject, .01f);
-        //}
     }
 
     private void OnMouseExit()
