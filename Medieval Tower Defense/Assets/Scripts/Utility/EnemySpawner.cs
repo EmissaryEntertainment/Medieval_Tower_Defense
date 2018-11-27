@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class which controls the spawning of enemies along the path in game
+/// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     private GameObject spiderEnemy;

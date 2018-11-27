@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TurretUpgradeButtonControls : MonoBehaviour
+public class MachineGunTurretUpgradeButtonControls : MonoBehaviour
 {
     Resources_Health r_h;
     public static int nextTowerCost = 200; // default value to avoid errors

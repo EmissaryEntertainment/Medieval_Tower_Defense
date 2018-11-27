@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Resources_Health : MonoBehaviour
 {
-    int resources = 300;
+    int resources = 2000;
     int health = 10;
 
     Text resourceText;

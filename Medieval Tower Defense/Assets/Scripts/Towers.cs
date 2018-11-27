@@ -23,22 +23,28 @@ public class Towers : TowerClass
     public int towerCost; // used for taking resources from the player when instantiating or upgrading a turret
     public GameObject bullet; // the bullet gameobject the turret will insantiate
 
-    public Image turretUpgradeButtonImage; // image for the upgrade button for the next turret
-    public Button turretUpgradeButton; // button component for turret upgrade
+    public Image machineGunTurretUpgradeButtonImage; // image for the upgrade button for the next turret
+    public Button machineGunTurretUpgradeButton; // button component for turret upgrade
+    public Image laserTurretUpgradeButtonImage;
+    public Button laserTurretUpgradeButton;
 
     AutomatedTest currentMouseValues = new AutomatedTest();
 
     private void Awake()
     {
-        turretUpgradeButtonImage = GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>();
-        turretUpgradeButton = GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Button>();
+        machineGunTurretUpgradeButtonImage = GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>();
+        machineGunTurretUpgradeButton = GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Button>();
+        laserTurretUpgradeButtonImage = GameObject.FindGameObjectWithTag("LaserTowerUpgradeButton").GetComponent<Image>();
+        laserTurretUpgradeButton = GameObject.FindGameObjectWithTag("LaserTowerUpgradeButton").GetComponent<Button>();
     }
 
     // Use this for initialization
     void Start ()
     {
-        turretUpgradeButton.enabled = false;
-        turretUpgradeButtonImage.enabled = false;
+        machineGunTurretUpgradeButton.enabled = false;
+        machineGunTurretUpgradeButtonImage.enabled = false;
+        laserTurretUpgradeButton.enabled = false;
+        laserTurretUpgradeButtonImage.enabled = false;
         towerTag = this.tag;
         rangeIdentifier = transform.Find("RangeIdentifier").gameObject;
         if (transform.parent.GetComponent<TurretSelection>() != null)
@@ -79,17 +85,30 @@ public class Towers : TowerClass
 
     private void OnMouseDown()
     {
-        if (this.tag != "MachineGunLvl3")
+        if (this.tag == "MachineGunLvl1" || this.tag == "MachineGunLvl2")
         {
             if (GameObject.FindGameObjectWithTag("TurretSpawnButton") != null)
             {
                 GameObject.FindGameObjectWithTag("TurretSpawnButton").SetActive(false);
             }
-            turretUpgradeButton.enabled = true;
-            turretUpgradeButtonImage.enabled = true;
+            machineGunTurretUpgradeButton.enabled = true;
+            machineGunTurretUpgradeButtonImage.enabled = true;
             TurretSelection.currentTower = this.gameObject;
             TurretSelection.nextTower = thisTower.GetNextTower();
-            TurretUpgradeButtonControls.nextTowerCost = thisTower.GetNextTower().GetComponent<Towers>().TowerCost();
+            MachineGunTurretUpgradeButtonControls.nextTowerCost = thisTower.GetNextTower().GetComponent<Towers>().TowerCost();
+            TurretSelection.currentNode = this.transform.parent;
+        }
+        else if(this.tag == "LaserTowerLvl1" || this.tag == "LaserTowerLvl2")
+        {
+            if (GameObject.FindGameObjectWithTag("LaserTowerSpawnButton") != null)
+            {
+                GameObject.FindGameObjectWithTag("LaserTowerSpawnButton").SetActive(false);
+            }
+            laserTurretUpgradeButton.enabled = true;
+            laserTurretUpgradeButtonImage.enabled = true;
+            TurretSelection.currentTower = this.gameObject;
+            TurretSelection.nextTower = thisTower.GetNextTower();
+            LaserTurretUpgradeButton.nextTowerCost = thisTower.GetNextTower().GetComponent<Towers>().TowerCost();
             TurretSelection.currentNode = this.transform.parent;
         }
     }

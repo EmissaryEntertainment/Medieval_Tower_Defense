@@ -92,6 +92,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    /// <summary>
+    /// Sets the game resloution based on the dropdown menu value
+    /// </summary>
     public void SetResolution()
     {
         if (dropdownMenu.value == 0)
@@ -126,6 +129,9 @@ public class GameManager : MonoBehaviour
      * Using int dropdownValue in start function to set the dropdown menu's value to the same value that is read back from the xml file
      */
 
+    /// <summary>
+    /// Saves current screen resolution drop down menu selection to an xml file
+    /// </summary>
     public void SaveData()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(string)); // type of data you want to save
@@ -134,6 +140,9 @@ public class GameManager : MonoBehaviour
         stream.Close();
     }
 
+    /// <summary>
+    /// Loads the xml file that is saved in application.datapath and sets the dropdown menu to that value
+    /// </summary>
     public void LoadData()
     {
         string temp;

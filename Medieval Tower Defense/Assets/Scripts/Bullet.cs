@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class attached to each bullet that controls it's target and path
+/// </summary>
 public class Bullet : MonoBehaviour
 {
     Towers parentTower;

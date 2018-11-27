@@ -16,6 +16,11 @@ TagManager:
   - TurretSpawnButton
   - Node
   - TurretUpgradeButton
+  - LaserTowerLvl1
+  - LaserTowerSpawnButton
+  - LaserTowerUpgradeButton
+  - LaserTowerLvl2
+  - LaserTowerLvl3
   layers:
   - Default
   - TransparentFX

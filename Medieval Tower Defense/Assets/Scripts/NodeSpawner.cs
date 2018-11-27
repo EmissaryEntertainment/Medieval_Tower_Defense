@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 public class NodeSpawner : MonoBehaviour
 {
-    GameObject turretSpawnButton;
+    GameObject machineGunTurretSpawnButton;
+    GameObject laserTurretSpawnButton;
 
     GameObject[] allNodes;
 
@@ -19,7 +20,8 @@ public class NodeSpawner : MonoBehaviour
 
     private void Awake()
     {
-        turretSpawnButton = GameObject.FindGameObjectWithTag("TurretSpawnButton");
+        machineGunTurretSpawnButton = GameObject.FindGameObjectWithTag("TurretSpawnButton");
+        laserTurretSpawnButton = GameObject.FindGameObjectWithTag("LaserTowerSpawnButton");
     }
 
     private void Start()
@@ -28,7 +30,7 @@ public class NodeSpawner : MonoBehaviour
         {
             allNodes = GameObject.FindGameObjectsWithTag("Node");
         }
-        turretSpawnButton.SetActive(false);
+        machineGunTurretSpawnButton.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -38,17 +40,20 @@ public class NodeSpawner : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>().enabled == true)
+        if (GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>().enabled == true && GameObject.FindGameObjectWithTag("LaserTowerSpawnButton").GetComponent<Image>().enabled)
         {
             GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Image>().enabled = false;
             GameObject.FindGameObjectWithTag("TurretUpgradeButton").GetComponent<Button>().enabled = false;
+            GameObject.FindGameObjectWithTag("LaserTowerSpawnButton").GetComponent<Image>().enabled = false;
+            GameObject.FindGameObjectWithTag("LaserTowerSpawnButton").GetComponent<Button>().enabled = false;
         }
         for (int i = 0;i<allNodes.Length;i++)
         {
             allNodes[i].GetComponent<Renderer>().material = unselectedNodeMat;
         }
         this.GetComponent<Renderer>().material = selectedNodeMat;
-        turretSpawnButton.SetActive(true);
+        machineGunTurretSpawnButton.SetActive(true);
+        laserTurretSpawnButton.SetActive(true);
         TurretSelection.currentNode = this.transform;
         MouseEvents thisMouseEvent = new MouseEvents(Input.mousePosition.x,Input.mousePosition.y, true, gameTicks);
         currentMouseValues.StoreMousePosition(thisMouseEvent);

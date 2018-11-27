@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Attached to each GiantRat controlling its pathing ai
+/// </summary>
 public class GiantRatEnemy : MonoBehaviour
 {
     Slider healthBar;
